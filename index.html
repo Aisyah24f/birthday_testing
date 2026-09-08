@@ -31,6 +31,9 @@
     color:var(--ink);
     overflow-x:hidden;
   }
+  body.locked{
+    overflow:hidden;
+  }
   h1,h2,h3,.display{
     font-family:'Space Grotesk',sans-serif;
     font-weight:700;
@@ -60,6 +63,85 @@
     margin-bottom:16px;
     transform:rotate(-2deg);
   }
+
+  /* ---------- ALERT MODAL ---------- */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(23,20,18,0.65);
+    backdrop-filter:blur(4px);
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    transition:opacity .3s ease;
+  }
+  .modal-card{
+    background:var(--card);
+    border:3px solid var(--ink);
+    border-radius:24px;
+    padding:34px 26px 26px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+    box-shadow:8px 8px 0 var(--ink);
+    position:relative;
+    animation:popIn .4s cubic-bezier(.3,1.4,.5,1);
+  }
+  .modal-icon{
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    background:var(--lime);
+    border:2.5px solid var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    margin:0 auto 16px;
+    box-shadow:3px 3px 0 var(--ink);
+  }
+  .modal-card h3{
+    font-size:22px;
+    margin-bottom:8px;
+  }
+  .modal-card p{
+    font-size:15px;
+    font-weight:600;
+    color:rgba(23,20,18,0.75);
+    margin:0 0 22px;
+    line-height:1.5;
+  }
+  .modal-btn-play{
+    background:var(--pink);
+    color:var(--cream);
+    border:2.5px solid var(--ink);
+    padding:13px 24px;
+    border-radius:999px;
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:15px;
+    cursor:pointer;
+    width:100%;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:.15s;
+    margin-bottom:10px;
+  }
+  .modal-btn-play:hover{ background:var(--orange); }
+  .modal-btn-play:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ink); }
+  .modal-btn-skip{
+    background:transparent;
+    border:none;
+    color:var(--ink);
+    font-family:'Nunito',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+    opacity:0.6;
+    padding:6px;
+  }
+  .modal-btn-skip:hover{ opacity:1; text-decoration:underline; }
 
   /* ---------- NAV DOTS ---------- */
   .navdots{
@@ -106,15 +188,15 @@
     align-items:center;
     gap:8px;
   }
-  .music-btn:hover{
-    background:var(--cream);
+  .music-btn:hover{ background:var(--cream); }
+  .music-btn:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink); }
+  .music-btn.playing{ background:var(--lime); }
+  .music-btn.pulse-attention{
+    animation:attentionPulse 1s infinite alternate;
   }
-  .music-btn:active{ 
-    transform:translate(2px,2px); 
-    box-shadow:1px 1px 0 var(--ink); 
-  }
-  .music-btn.playing{
-    background:var(--lime);
+  @keyframes attentionPulse{
+    from{ transform:scale(1); box-shadow:3px 3px 0 var(--ink); }
+    to{ transform:scale(1.08); box-shadow:5px 5px 0 var(--pink-deep); }
   }
 
   /* ---------- HERO ---------- */
@@ -334,7 +416,7 @@
     box-shadow:2px 2px 0 var(--ink);
   }
 
-  /* ---------- GAME ---------- */
+  /* ---------- MEMORY GAME ---------- */
   #game{ background:var(--paper); }
   .game-meta{
     display:flex;
@@ -705,7 +787,19 @@
   }
 </style>
 </head>
-<body>
+<body class="locked">
+
+<!-- POPUP ALERT MODAL -->
+<div class="modal-overlay" id="musicModal">
+  <div class="modal-card">
+    <div class="modal-icon">&#127911;</div>
+    <h3>wait sayanggg! &#127925;</h3>
+    <p>Sebelum scroll tengok semua, pasang lagu kita dulu kat butang atas sebelah kiri tu tau barulah feelll! &#128538;&#10024;</p>
+    <button class="modal-btn-play" id="modalPlayBtn">&#9654; play lagu & explore! &#128156;</button>
+    <br>
+    <button class="modal-btn-skip" id="modalSkipBtn">nak scroll senyap-senyap dulu</button>
+  </div>
+</div>
 
 <!-- AUDIO ELEMENT (MP3) -->
 <audio id="bgAudio" src="song.mp3" loop preload="auto"></audio>
@@ -749,7 +843,7 @@
 
 <section id="letter">
   <p class="eyebrow">read this first</p>
-  <h2 style="font-size:clamp(26px,4vw,36px)">before anything else please play the song<p>on the left corner dulu tau!<p/>
+  <h2 style="font-size:clamp(26px,4vw,36px)">before anything else...</h2>
   <div class="envelope-wrap" style="margin-top:30px;">
     <div class="envelope" id="envelope">
       <div class="env-shadow"></div>
@@ -890,17 +984,47 @@
 <footer> - by Princess EcahPeruz </footer>
 
 <script>
-// ===================== AUDIO (song.mp3) =====================
+// ===================== AUDIO & MODAL ALERT =====================
 const bgAudio = document.getElementById('bgAudio');
 const musicBtn = document.getElementById('musicBtn');
+const musicModal = document.getElementById('musicModal');
+const modalPlayBtn = document.getElementById('modalPlayBtn');
+const modalSkipBtn = document.getElementById('modalSkipBtn');
+
+function unlockSite() {
+  document.body.classList.remove('locked');
+  musicModal.style.opacity = '0';
+  setTimeout(() => {
+    musicModal.style.display = 'none';
+  }, 300);
+}
+
+modalPlayBtn.addEventListener('click', () => {
+  unlockSite();
+  bgAudio.play().then(() => {
+    musicBtn.classList.add('playing');
+    musicBtn.innerHTML = '&#10074;&#10074; pause song';
+  }).catch(err => {
+    console.warn("Autoplay blocked:", err);
+  });
+});
+
+modalSkipBtn.addEventListener('click', () => {
+  unlockSite();
+  musicBtn.classList.add('pulse-attention');
+  setTimeout(() => {
+    musicBtn.classList.remove('pulse-attention');
+  }, 5000);
+});
 
 musicBtn.addEventListener('click', () => {
+  musicBtn.classList.remove('pulse-attention');
   if (bgAudio.paused) {
     bgAudio.play().then(() => {
       musicBtn.classList.add('playing');
       musicBtn.innerHTML = '&#10074;&#10074; pause song';
     }).catch(err => {
-      console.warn("Audio play blocked or file not found:", err);
+      console.warn("Play error:", err);
     });
   } else {
     bgAudio.pause();
@@ -1120,7 +1244,7 @@ document.getElementById('generateWallBtn').addEventListener('click', () => {
   document.getElementById('memoryWall').scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
-// ===================== QUIZ (scored) =====================
+// ===================== QUIZ =====================
 const quizData = [
   { q: "Where was our first date?", options: ["Coffee shop", "The mall", "A museum", "Somewhere neither of us remembers"], correct: 2 },
   { q: "What's my go-to comfort food?", options: ["Malatang", "Ramen", "Chocolate anything", "Fruit"], correct: 3 },
