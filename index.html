@@ -8,17 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FCF7EA;
+    --paper:#FFFFFF;
     --card:#FFFFFF;
     --ink:#171412;
-    --lime:#D7FF3D;
-    --pink:#FF3E88;
-    --pink-deep:#B0134F;
-    --orange:#FF8A3D;
-    --sky:#4FD3FF;
-    --mint:#6EE7B7;
-    --marigold:#FFC857;
-    --cream:#FFF6EA;
+    --lime:#F7BCAC;
+    --pink:#F4C2C2;
+    --pink-deep:#C08081;
+    --orange:#F89883;
+    --sky:#CC8899;
+    --mint:#F0C0A8;
+    --marigold:#D8A8A8;
+    --cream:#FFF8F6;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -161,7 +161,6 @@
     box-decoration-break:clone;
     -webkit-box-decoration-break:clone;
   }
-  .hero-title .shadow-text,
   .hero-title.shadow-text{
     position:absolute;
     top:6px; left:6px;
@@ -375,90 +374,7 @@
     margin-top:10px;
   }
 
-  /* ---------- SCRAPBOOK ---------- */
-  #scrapbook{
-    background:
-      radial-gradient(rgba(0,0,0,0.1) 1.5px, transparent 1.5px) 0 0/16px 16px,
-      #C9A46B;
-  }
-  .scrap-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:38px 30px;
-    max-width:920px;
-    margin-top:26px;
-  }
-  @media (max-width:800px){ .scrap-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:520px){ .scrap-grid{ grid-template-columns:1fr; max-width:320px; } }
-  .scrap-card{
-    position:relative;
-    background:var(--paper,var(--cream));
-    padding:24px 18px 18px;
-    border:2.5px solid var(--ink);
-    border-radius:6px;
-    box-shadow:5px 5px 0 var(--ink);
-    transform:rotate(var(--rot,0deg));
-    transition:transform .2s;
-    color:#2A2018;
-  }
-  .scrap-card:hover{ transform:rotate(0deg) scale(1.05); z-index:5; }
-  .scrap-tape{
-    position:absolute;
-    top:-14px; left:50%;
-    transform:translateX(-50%) rotate(-3deg);
-    width:72px; height:26px;
-    background:rgba(255,255,255,0.6);
-    border:1.5px solid var(--ink);
-  }
-  .scrap-text{
-    font-family:'Caveat',cursive;
-    font-weight:700;
-    font-size:22px;
-    line-height:1.3;
-    margin:4px 0 10px;
-    min-height:60px;
-  }
-  .scrap-signed{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:13px;
-    text-align:right;
-    color:var(--pink-deep);
-    margin-bottom:12px;
-  }
-  .scrap-photo{
-    border:1.5px solid var(--ink);
-    border-radius:4px;
-    overflow:hidden;
-    aspect-ratio:4/3;
-    background:repeating-linear-gradient(45deg, var(--pink), var(--pink) 10px, var(--orange) 10px, var(--orange) 20px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
-    color:var(--ink);
-    font-weight:700;
-    text-align:center;
-    padding:6px;
-  }
-  .scrap-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .scrap-add{
-    background:transparent;
-    border:2.5px dashed var(--ink);
-    box-shadow:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:180px;
-    color:rgba(23,20,18,0.6);
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:14px;
-    text-align:center;
-    padding:20px;
-  }
-
-  /* ---------- QUIZ 1 (fun) ---------- */
+  /* ---------- QUIZ (scored) ---------- */
   #quiz{ background:var(--paper); }
   .quiz-card{
     width:min(480px,90vw);
@@ -493,7 +409,10 @@
     transition:.15s;
     box-shadow:3px 3px 0 var(--ink);
   }
-  .qz-opt:hover{ background:var(--lime); transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
+  .qz-opt:hover{ transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
+  .qz-opt.right{ background:var(--lime); }
+  .qz-opt.wrong{ background:#ffd7d7; }
+  .qz-opt.disabled{ pointer-events:none; opacity:0.85; }
   .qz-feedback{
     margin-top:18px;
     color:var(--pink-deep);
@@ -504,6 +423,17 @@
   .qz-final{ display:none; }
   .qz-final.show{ display:block; }
   .qz-final .big{ font-size:44px; margin-bottom:8px; }
+  .qz-score{
+    display:inline-block;
+    background:var(--lime);
+    border:2.5px solid var(--ink);
+    border-radius:999px;
+    padding:8px 22px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:18px;
+    margin:10px 0 14px;
+  }
 
   /* ---------- SCHEDULER / LUNCH DATE ---------- */
   #lunch{ background:var(--paper); }
@@ -522,6 +452,33 @@
     box-shadow:3px 3px 0 var(--ink);
   }
   .chip.selected, .chip:hover{ background:var(--pink); color:var(--cream); }
+  .date-card{
+    background:var(--card);
+    border:2.5px solid var(--ink);
+    border-radius:16px;
+    padding:18px 22px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:.15s;
+    min-width:150px;
+  }
+  .date-card .day{ font-size:12px; opacity:0.6; letter-spacing:1px; text-transform:uppercase; }
+  .date-card .num{ font-size:30px; margin:4px 0; }
+  .date-card.selected{ background:var(--lime); }
+  .date-card:hover{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+  .time-input, .lunch-input{
+    font-family:'Nunito',sans-serif;
+    font-size:16px;
+    padding:12px 16px;
+    border-radius:10px;
+    border:2px solid var(--ink);
+    margin-top:20px;
+    background:var(--card);
+    color:var(--ink);
+    font-weight:700;
+  }
   .lunch-next{
     margin-top:30px;
     background:var(--lime);
@@ -543,68 +500,250 @@
   .lunch-step{ display:none; }
   .lunch-step.active{ display:flex; flex-direction:column; align-items:center; }
 
-  .scratch-card{
+  .invite-card{
     position:relative;
-    width:min(400px,88vw);
-    height:280px;
-    border:2.5px solid var(--ink);
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:6px 6px 0 var(--ink);
-    margin-top:10px;
-    user-select:none;
-    -webkit-user-select:none;
-  }
-  .scratch-reveal{
-    position:absolute; inset:0;
+    width:min(380px,88vw);
     background:var(--card);
-    color:#2A2018;
+    border:3px solid var(--ink);
+    border-radius:20px;
+    padding:34px 26px 28px;
+    box-shadow:7px 7px 0 var(--ink);
+    margin-top:16px;
+    animation:popIn .5s cubic-bezier(.3,1.4,.5,1);
+  }
+  @keyframes popIn{ from{ opacity:0; transform:scale(0.8);} to{opacity:1; transform:scale(1);} }
+  .invite-sticker{
+    position:absolute;
+    top:-18px; right:-14px;
+    background:var(--pink);
+    color:var(--cream);
+    border:2.5px solid var(--ink);
+    border-radius:50%;
+    width:56px; height:56px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px;
+    transform:rotate(12deg);
+  }
+  .invite-card h3{ font-size:24px; color:var(--pink-deep); margin-bottom:4px; }
+  .invite-card .invite-sub{ font-family:'Caveat',cursive; font-weight:700; font-size:20px; color:var(--ink); opacity:0.8; margin-bottom:18px; }
+  .invite-row{
     display:flex;
-    flex-direction:column;
     align-items:center;
-    justify-content:center;
-    padding:20px;
-    text-align:center;
+    gap:10px;
+    text-align:left;
+    padding:10px 0;
+    border-top:1.5px dashed rgba(23,20,18,0.25);
+    font-weight:700;
   }
-  .scratch-reveal h3{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:24px; margin-bottom:10px; color:var(--pink-deep); }
-  .scratch-reveal p{ font-size:14px; margin:0 0 16px; color:#5b4a3a; }
-  .scratch-reveal input{
-    font-family:'Nunito',sans-serif;
-    font-size:14px;
-    padding:8px 10px;
-    border-radius:8px;
-    border:1.5px solid var(--ink);
-    margin:5px;
-  }
-  .scratch-reveal button{
-    margin-top:14px;
+  .invite-row:first-of-type{ border-top:none; }
+  .invite-row .ic{ font-size:20px; }
+  .invite-row .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:1px; opacity:0.55; display:block; }
+  .invite-row .val{ font-size:15px; }
+  .invite-card button{
+    margin-top:20px;
     background:var(--pink);
     color:var(--cream);
     border:2px solid var(--ink);
-    padding:10px 22px;
+    padding:12px 24px;
     border-radius:999px;
     font-weight:700;
     font-family:'Space Grotesk',sans-serif;
     cursor:pointer;
     box-shadow:3px 3px 0 var(--ink);
-  }
-  .scratch-canvas{
-    position:absolute; inset:0;
-    z-index:5;
-    touch-action:none;
-  }
-  .scratch-hint{
-    margin-top:14px;
-    font-size:13px;
-    color:rgba(23,20,18,0.55);
-    font-weight:600;
+    width:100%;
   }
   .ics-status{
-    margin-top:14px;
+    margin-top:12px;
     font-size:13px;
     color:var(--pink-deep);
     font-weight:700;
     min-height:18px;
+  }
+
+  /* ---------- MEMORY GAME ---------- */
+  #game{ background:var(--paper); }
+  .game-meta{
+    display:flex;
+    gap:14px;
+    margin:6px 0 24px;
+  }
+  .game-pill{
+    background:var(--card);
+    border:2px solid var(--ink);
+    border-radius:999px;
+    padding:8px 18px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    box-shadow:2px 2px 0 var(--ink);
+  }
+  .memory-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    max-width:420px;
+    width:100%;
+  }
+  @media (max-width:480px){ .memory-grid{ grid-template-columns:repeat(3,1fr); max-width:320px; } }
+  .memory-card{
+    aspect-ratio:1/1;
+    perspective:800px;
+    cursor:pointer;
+  }
+  .memory-card-inner{
+    position:relative;
+    width:100%; height:100%;
+    transition:transform .45s;
+    transform-style:preserve-3d;
+  }
+  .memory-card.flipped .memory-card-inner,
+  .memory-card.matched .memory-card-inner{
+    transform:rotateY(180deg);
+  }
+  .memory-card-face{
+    position:absolute; inset:0;
+    backface-visibility:hidden;
+    border:2.5px solid var(--ink);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .memory-card-back{
+    background:var(--pink);
+    color:var(--cream);
+    font-size:22px;
+    box-shadow:3px 3px 0 var(--ink);
+  }
+  .memory-card-front{
+    background:repeating-linear-gradient(45deg, var(--lime), var(--lime) 8px, var(--sky) 8px, var(--sky) 16px);
+    transform:rotateY(180deg);
+    font-size:9px;
+    font-weight:700;
+    text-align:center;
+    padding:4px;
+    color:var(--ink);
+  }
+  .memory-card-front img{ width:100%; height:100%; object-fit:cover; }
+  .memory-card.matched .memory-card-face{
+    box-shadow:0 0 0 3px var(--lime);
+  }
+  .game-win{
+    display:none;
+    margin-top:24px;
+    background:var(--card);
+    border:2.5px solid var(--ink);
+    border-radius:16px;
+    padding:22px 28px;
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .game-win.show{ display:block; animation:popIn .5s cubic-bezier(.3,1.4,.5,1); }
+  .game-reset{
+    margin-top:18px;
+    background:var(--card);
+    border:2px solid var(--ink);
+    color:var(--ink);
+    padding:9px 20px;
+    border-radius:999px;
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+    cursor:pointer;
+    box-shadow:2px 2px 0 var(--ink);
+  }
+  .memory-wall{
+    display:none;
+    margin-top:20px;
+    flex-direction:column;
+    align-items:center;
+  }
+  .memory-wall.show{ display:flex; animation:riseIn .6s ease; }
+  .wood-frame{
+    background:linear-gradient(155deg,#C89A63,#9C6B3E);
+    border:3px solid var(--ink);
+    border-radius:14px;
+    padding:16px;
+    box-shadow:7px 7px 0 var(--ink);
+    max-width:640px;
+    width:100%;
+  }
+  .wood-frame-title{
+    background:var(--cream);
+    border:2px solid var(--ink);
+    border-radius:8px 8px 0 0;
+    padding:14px 10px 6px;
+    text-align:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:2px;
+    color:var(--pink-deep);
+  }
+  .wf-heart{ font-size:18px; }
+  .wf-sub{
+    background:var(--cream);
+    border-left:2px solid var(--ink);
+    border-right:2px solid var(--ink);
+    text-align:center;
+    font-size:11px;
+    font-weight:700;
+    color:rgba(23,20,18,0.5);
+    padding:0 10px 10px;
+    margin:0;
+  }
+  .month-grid{
+    background:var(--cream);
+    border:2px solid var(--ink);
+    border-top:none;
+    border-radius:0 0 8px 8px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    padding:12px;
+  }
+  @media (max-width:640px){ .month-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:420px){ .month-grid{ grid-template-columns:repeat(2,1fr); } }
+  .month-cell{
+    background:var(--card);
+    border:1.5px solid var(--ink);
+    border-radius:6px;
+    padding:6px 6px 8px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .month-cell .m-label{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:4px;
+  }
+  .month-cell .m-photo{
+    width:100%;
+    aspect-ratio:1/1;
+    background:repeating-linear-gradient(45deg, var(--lime), var(--lime) 6px, var(--sky) 6px, var(--sky) 12px);
+    border:1px solid var(--ink);
+    border-radius:3px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:7px;
+    font-weight:700;
+    text-align:center;
+    padding:2px;
+  }
+  .month-cell .m-photo img{ width:100%; height:100%; object-fit:cover; }
+  .month-cell .m-note{
+    font-family:'Caveat',cursive;
+    font-weight:700;
+    font-size:14px;
+    line-height:1.15;
+    margin-top:5px;
+    text-align:center;
+    color:var(--pink-deep);
   }
 
   footer{
@@ -623,32 +762,31 @@
 <div class="navdots">
   <a href="#hero" class="active" data-target="hero"></a>
   <a href="#letter" data-target="letter"></a>
-  <a href="#gallery" data-target="gallery"></a>
-  <a href="#scrapbook" data-target="scrapbook"></a>
   <a href="#quiz" data-target="quiz"></a>
+  <a href="#game" data-target="game"></a>
   <a href="#lunch" data-target="lunch"></a>
 </div>
 
 <section id="hero">
   <div class="sticker s1">certified<br>day one &#9733;</div>
   <div class="sticker s2">10/10<br>partner</div>
-  <p class="eyebrow">&#9733; IT's IBAD'S DAYYYY!!! &#9733;</p>
+  <p class="eyebrow">&#9733; it's Ibad's day!!! &#9733;</p>
   <div class="hero-title-wrap">
     <div class="hero-title shadow-text" aria-hidden="true">HAPPY<br><span class="hl">BIRTHDAY</span></div>
     <div class="hero-title">HAPPY<br><span class="hl">BIRTHDAY</span></div>
   </div>
-  <p class="hero-sub">to my favorite person. this whole page is basically a love letter with extra steps &#128064;</p>
+  <p class="hero-sub">this whole page is basically a love letter with extra steps thanks to my prompt skills &#128064;</p>
 
   <div class="marquee">
     <div class="marquee-track">
-      <span>&#9733; certified ver's fans</span>
+      <span>&#9733; certified ver's loyal fans</span>
       <span>&#9733; my favorite human</span>
       <span>&#9733; i'm so glad you exist</span>
-      <span>&#9733; happy birthday bbcukcamm</span>
-      <span>&#9733; certified ver's fans</span>
+      <span>&#9733; happy birthday bb cukcammm</span>
+      <span>&#9733; certified ver's loyal fans</span>
       <span>&#9733; my favorite human</span>
       <span>&#9733; i'm so glad you exist</span>
-      <span>&#9733; happy birthday bbcukcam</span>
+      <span>&#9733; happy birthday bb cukcammm</span>
     </div>
   </div>
 
@@ -669,75 +807,56 @@
     </div>
   </div>
   <div class="letter-paper" id="letterPaper">
-    <p>My love,</p>
-    <p>Another year of you — and somehow I still can't believe how lucky I am. Edit this paragraph and write down the thing you love most about him, a memory that still makes you smile, or an inside joke only the two of you get.</p>
-    <p>[Aisyah — replace this whole letter with your real words. Search for "EDIT: LETTER TEXT" in the file to find this section fast.]</p>
-    <p>Here's to more birthdays, more laughing at 2am over nothing, and more of us.</p>
+    <p> My forever baby,</p>
+    <p> Another year of you (walaupun kamu masih baby saya :p), and somehow I still can’t believe how lucky I am to be loved so loudly by you. Thank you sebab tak pernah give up on me, on us, even during the moments when loving me probably wasn’t the easiest thing to do.</p>
+    <p> You’ve shown me a kind of love that makes me feel safe, understood and appreciated in ways I never knew I needed. Dengan kamu saya belajar that love isn’t just about the butterflies and happy moments but also about choosing each other, again and again even on the difficult days. </p>
+    <p> I hope you know how much you mean to me, even when I don’t always know how to put it into words. I’m so grateful that somehow, out of all the people in this world, I get to love you and be loved by you. And if I could choose all over again, I’d still choose you..</p>
+    <p> Please don't ever change, and jangan tinggalkan sayaaa :(( I love you more than words can say and to moreee birthday year of usssss!!! Saya tashabar nak tngok what the future holds for us but I know that as long as we're still together, everything will be justttt fine .</p>
+    <p> Throughout this relationship, I've realised how much you had changed just to become better person you are today for me. Just so you know, I'm sooo soo proud of you for doing that without me even asking. Thankyou cayang sayaaaa! </p>
+    <p> I know i can be quite difficult to understand at times, but you never fail to make it all better. Kamu tak pernah complaint or judge how weird or dramatic i can be sometimes. Maksudnya saya belum cukup pelik la kan? </p>
+    <p> Saya tak boleh nak tulis panjang2 nanti saya nanesssss tapi just nak bagitau yang saya saaaaaayyaaanggg kamuuuu sangat sangatttt baby cukcam!! Please be moree clingier sbb skrng kamu tak cukup clingy and please hug me moreee thighter every time (gimme more me time dengan ketiak acam saya tu jugak tau) </p>
+    <p> Here's to more birthdays, more laughing at 2am over nothing, movie dates, random dates, cafe hunting datess, aye gepuk, and more moreeeee weird date of us lol.</p>
+    <p> Semoga Ibad Harzan sentiasa dimurahkan rezeki, dipanjangankan umur sbb boleh bawak saya makan dapdap, pergi dating tempat best2 hehehe </p>
+    <p> Dan semoga kita berjodohan bcs honestly i cannot imagine my future life without you in it sayang.</p>
+    <p> And nauzubillahiminzalik, if life ever tears us apart, I hope you can come across this letter I wrote for you, just to remind you that once upon a time, there was someone who loved you with all her heart. Someone who was grateful for every little moment, every laugh, every conversation and every memory we got to make together. </p>
+    <p>If one day we become strangers again, I hope you’ll know that you were never just a chapter in my life. You were a part of me that I will always carry no matter where life takes us. And if we ever have to walk separate ways, I pray that Allah keeps you safe, gives you the happiness you deserve, surrounds you with people who love you genuinely.</p>
+    <p>I don't know what the future holds for us, but as long as we're given the chance to love each other today, I want to cherish it with everything I have. And if this letter ever finds its way back to you someday, I hope you read it with a smile and remember that, at one point in this life, you were deeply, truly and sincerely loved by me Ibadku. </p>
     <p class="letter-sign">forever yours &#128156;</p>
     <button class="close-letter" id="closeLetter">close letter</button>
   </div>
 </section>
 
-<section id="gallery">
+<section id="game">
   <p class="eyebrow">little moments</p>
-  <h2 style="font-size:clamp(26px,4vw,36px)">us, in pictures</h2>
-  <div class="gallery-grid">
-    <div class="polaroid"><div class="frame"><img src="photo1.jpg" alt="Memory 1" onerror="this.style.display='none'; this.parentElement.innerHTML='add photo1.jpg'"></div><div class="cap">ur fav event &#127965;</div></div>
-    <div class="polaroid"><div class="frame"><img src="photo2.jpg" alt="Memory 2" onerror="this.style.display='none'; this.parentElement.innerHTML='add photo2.jpg'"></div><div class="cap">first date energy</div></div>
-    <div class="polaroid"><div class="frame"><img src="photo3.jpg" alt="Memory 3" onerror="this.style.display='none'; this.parentElement.innerHTML='add photo3.jpg'"></div><div class="cap">long lost daughter :(</div></div>
-    <div class="polaroid"><div class="frame"><img src="photo4.jpg" alt="Memory 4" onerror="this.style.display='none'; this.parentElement.innerHTML='add photo4.jpg'"></div><div class="cap">that concert night</div></div>
-    <div class="polaroid"><div class="frame"><img src="photo5.jpg" alt="Memory 5" onerror="this.style.display='none'; this.parentElement.innerHTML='add photo5.jpg'"></div><div class="cap">lazy sundays</div></div>
-    <div class="polaroid"><div class="frame"><img src="photo6.jpg" alt="Memory 6" onerror="this.style.display='none'; this.parentElement.innerHTML='add photo6.jpg'"></div><div class="cap">your birthday last year</div></div>
-  </div>
-  </section>
+  <h2 style="font-size:clamp(26px,4vw,36px); margin-bottom:10px;">us, in pictures</h2>
+  <p style="color:rgba(23,20,18,0.7); max-width:400px; margin-bottom:6px; font-weight:600;">Match every pair to unlock our memory wall.</p>
 
-  
-
-<section id="scrapbook">
-  <p class="eyebrow" style="background:var(--card);">from the people who love him too</p>
-  <h2 style="font-size:clamp(26px,4vw,36px); color:var(--ink);">birthday wishes wall</h2>
-  <p style="max-width:460px; color:rgba(23,20,18,0.75); margin-top:10px; font-weight:600;">A little scrapbook from his friends — each note paired with a favorite photo together.</p>
-
-  <div class="scrap-grid">
-    <div class="scrap-card" style="--paper:var(--pink); --rot:-4deg;">
-      <div class="scrap-tape"></div>
-      <p class="scrap-text">Happy birthday! So glad I get to call you my friend. Here's to more chaos and more memories together &#127881;</p>
-      <p class="scrap-signed">— Friend's name</p>
-      <div class="scrap-photo"><img src="friend1.jpg" alt="With friend 1" onerror="this.style.display='none'; this.parentElement.innerHTML='add friend1.jpg'"></div>
-    </div>
-
-    <div class="scrap-card" style="--paper:var(--cream); --rot:3deg;">
-      <div class="scrap-tape"></div>
-      <p class="scrap-text">Bro, another year older and somehow still the same menace I met years ago. Love you man, happy bday!</p>
-      <p class="scrap-signed">— Friend's name</p>
-      <div class="scrap-photo"><img src="friend2.jpg" alt="With friend 2" onerror="this.style.display='none'; this.parentElement.innerHTML='add friend2.jpg'"></div>
-    </div>
-
-    <div class="scrap-card" style="--paper:var(--mint); --rot:-2deg;">
-      <div class="scrap-tape"></div>
-      <p class="scrap-text">Wishing you the best birthday ever! Thanks for always being there. Let's celebrate soon &#129395;</p>
-      <p class="scrap-signed">— Friend's name</p>
-      <div class="scrap-photo"><img src="friend3.jpg" alt="With friend 3" onerror="this.style.display='none'; this.parentElement.innerHTML='add friend3.jpg'"></div>
-    </div>
-
-    <div class="scrap-card" style="--paper:var(--sky); --rot:2deg;">
-      <div class="scrap-tape"></div>
-      <p class="scrap-text">Happy birthday!! Never change, you're one of the good ones. See you at the celebration &#128153;</p>
-      <p class="scrap-signed">— Friend's name</p>
-      <div class="scrap-photo"><img src="friend4.jpg" alt="With friend 4" onerror="this.style.display='none'; this.parentElement.innerHTML='add friend4.jpg'"></div>
-    </div>
-
-    <div class="scrap-card" style="--paper:var(--marigold); --rot:-3deg;">
-      <div class="scrap-tape"></div>
-      <p class="scrap-text">Happy birthday! Grateful for all the memories, here's to many more. You deserve the best &#127874;</p>
-      <p class="scrap-signed">— Friend's name</p>
-      <div class="scrap-photo"><img src="friend5.jpg" alt="With friend 5" onerror="this.style.display='none'; this.parentElement.innerHTML='add friend5.jpg'"></div>
-    </div>
-
-    <div class="scrap-card scrap-add">more wishes coming soon...</div>
+  <div class="game-meta">
+    <div class="game-pill">moves: <span id="gameMoves">0</span></div>
+    <div class="game-pill">pairs: <span id="gamePairs">0</span>/6</div>
   </div>
 
-  <p style="margin-top:26px; font-size:12px; color:rgba(23,20,18,0.6); max-width:420px; font-weight:600;">To add real wishes: ask each friend for a short message + a photo of them with him, then edit the text and swap in friend1.jpg, friend2.jpg, etc. (same folder as this file).</p>
+  <div class="memory-grid" id="memoryGrid"></div>
+
+  <div class="game-win" id="gameWin">
+    <div style="font-size:34px;">&#127881;</div>
+    <h3 style="font-size:20px; margin:6px 0;">you found them all!</h3>
+    <p style="font-weight:600; color:rgba(23,20,18,0.7); font-size:14px;">it took you <span id="gameFinalMoves">0</span> moves</p>
+    <button class="game-reset" id="generateWallBtn" style="background:var(--pink); color:var(--cream);">generate memory wall &#10024;</button>
+    <br>
+    <button class="game-reset" id="gameResetBtn" style="margin-top:10px;">play again</button>
+  </div>
+
+  <div class="memory-wall" id="memoryWall">
+    <div class="wood-frame">
+      <div class="wood-frame-title">
+        <span class="wf-heart">&#129293;</span>
+        <span>Us, throughout the year </span>
+        <span class="wf-heart">&#129293;</span>
+      </div>
+      <div class="month-grid" id="monthGrid"></div>
+    </div>
+  </div>
 </section>
 
 <section id="quiz">
@@ -752,75 +871,75 @@
     </div>
     <div class="qz-final" id="qzFinal">
       <div class="big">&#127881;</div>
-      <h3 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px;">you know us pretty well!</h3>
-      <p style="color:rgba(23,20,18,0.65); margin-top:10px; font-size:14px; font-weight:600;">(Edit the "quizFinalText" line in the code to write your own closing message here.)</p>
+      <h3 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px;">quiz done!</h3>
+      <div class="qz-score" id="qzScoreText"></div>
+      <p id="qzFinalMsg" style="color:rgba(23,20,18,0.65); margin-top:6px; font-size:14px; font-weight:600;"></p>
     </div>
   </div>
 </section>
 
 <section id="lunch">
   <p class="eyebrow">one more thing...</p>
-  <h2 style="font-size:clamp(26px,4vw,36px); margin-bottom:10px;">let's plan your birthday lunch</h2>
-  <p style="color:rgba(23,20,18,0.7); max-width:420px; margin-bottom:10px; font-weight:600;">Answer a few quick questions so I know when to steal you away.</p>
+  <h2 style="font-size:clamp(26px,4vw,36px); margin-bottom:10px;">let's plan your birthday meal!</h2>
+  <p style="color:rgba(23,20,18,0.7); max-width:420px; margin-bottom:10px; font-weight:600;">Pick a date, a time, and how we're dressing & lemme cook!</p>
 
   <div class="step-panel">
     <div class="lunch-step active" id="lstep1">
-      <p style="font-weight:700; margin-top:26px;">Which day works best for you?</p>
-      <div class="chip-row" id="dayChips">
-        <div class="chip" data-val="Saturday">Saturday</div>
-        <div class="chip" data-val="Sunday">Sunday</div>
-        <div class="chip" data-val="A weekday evening instead">A weekday evening instead</div>
-        <div class="chip" data-val="Surprise me">Surprise me</div>
+      <p style="font-weight:700; margin-top:26px;">Which date works for you?</p>
+      <div class="chip-row" id="dateChips">
+        <div class="date-card" data-val="2026-09-12">
+          <div class="day">Saturday</div>
+          <div class="num">12</div>
+          <div class="day">Sept</div>
+        </div>
+        <div class="date-card" data-val="2026-09-13">
+          <div class="day">Sunday</div>
+          <div class="num">13</div>
+          <div class="day">Sept</div>
+        </div>
       </div>
       <button class="lunch-next" data-next="lstep2">next &#8594;</button>
     </div>
 
     <div class="lunch-step" id="lstep2">
-      <p style="font-weight:700; margin-top:26px;">What are you in the mood for?</p>
-      <div class="chip-row" id="moodChips">
-        <div class="chip" data-val="Something cozy and quiet">Cozy & quiet</div>
-        <div class="chip" data-val="Somewhere new we haven't tried">Somewhere new</div>
-        <div class="chip" data-val="Our usual favorite spot">Our favorite spot</div>
-        <div class="chip" data-val="Whatever you pick">Whatever you pick</div>
-      </div>
-      <button class="lunch-next" data-next="lstep3">next &#8594;</button>
+      <p style="font-weight:700; margin-top:26px;">What time should you pick me up?</p>
+      <input type="time" class="time-input" id="lunchTimeInput" value="12:30">
+      <button class="lunch-next enabled" data-next="lstep3">next &#8594;</button>
     </div>
 
     <div class="lunch-step" id="lstep3">
-      <p style="font-weight:700; margin-top:26px;">Last one — how should I dress?</p>
+      <p style="font-weight:700; margin-top:26px;">Last one > how should we dress?</p>
       <div class="chip-row" id="dressChips">
-        <div class="chip" data-val="Casual, keep it easy">Casual</div>
+        <div class="chip" data-val="Casual">Casual</div>
         <div class="chip" data-val="Dress up a little">Dress up a little</div>
         <div class="chip" data-val="Surprise formal">Surprise formal</div>
       </div>
-      <button class="lunch-next" data-next="lstep4">reveal the plan &#8594;</button>
+      <button class="lunch-next" data-next="lstep4">generate invitation &#8594;</button>
     </div>
 
     <div class="lunch-step" id="lstep4">
-      <p style="margin:26px 0 14px; font-size:14px; color:rgba(23,20,18,0.6); font-weight:600;">Scratch the card below &#10024;</p>
-      <div class="scratch-card">
-        <div class="scratch-reveal">
-          <h3>lunch date, locked in &#127881;</h3>
-          <p id="lunchSummary">Loading your answers...</p>
-          <div>
-            <input type="date" id="lunchDate">
-            <input type="time" id="lunchTime" value="12:30">
-          </div>
-          <button id="addCalendarBtn">add to calendar &#128197;</button>
-          <div class="ics-status" id="icsStatus"></div>
-        </div>
-        <canvas class="scratch-canvas" id="scratchCanvas"></canvas>
+      <div class="invite-card" id="inviteCard">
+        <div class="invite-sticker">&#127874;</div>
+        <h3>you're invited!</h3>
+        <p class="invite-sub">birthday date lesgooooo &#128156;</p>
+        <div class="invite-row"><span class="ic">&#128197;</span><div><span class="lbl">date</span><span class="val" id="inviteDate">-</span></div></div>
+        <div class="invite-row"><span class="ic">&#8987;</span><div><span class="lbl">time</span><span class="val" id="inviteTime">-</span></div></div>
+        <div class="invite-row"><span class="ic">&#128092;</span><div><span class="lbl">dress code</span><span class="val" id="inviteDress">-</span></div></div>
+        <button id="addCalendarBtn">add to calendar &#128197;</button>
+        <div class="ics-status" id="icsStatus"></div>
       </div>
-      <p class="scratch-hint">scratch with your finger or mouse to reveal it</p>
     </div>
   </div>
 </section>
 
-<footer>made with a lot of love, for you &#127874;</footer>
+<footer>made with a lot of love, for you. &#127874;</footer>
+<footer>tolong screenshot date tu baby sbb saya tak buat backend HHAHAHAHHAH</footer>
+<footer> - by Princess EcahPeruz </footer>
+
 
 <script>
 // ===================== NAV DOTS =====================
-const sections = ['hero','letter','gallery','scrapbook','quiz','lunch'];
+const sections = ['hero','letter','game','quiz','lunch'];
 const dots = document.querySelectorAll('.navdots a');
 window.addEventListener('scroll', () => {
   let current = sections[0];
@@ -833,7 +952,7 @@ window.addEventListener('scroll', () => {
 
 // ===================== BALLOONS =====================
 const heroSection = document.getElementById('hero');
-const balloonColors = ['#FF3E88','#FFC857','#6EE7B7','#4FD3FF','#FF8A3D'];
+const balloonColors = ['#F4C2C2','#F89883','#F0C0A8','#CC8899','#D8A8A8'];
 for (let i = 0; i < 10; i++) {
   const b = document.createElement('div');
   b.className = 'balloon';
@@ -847,7 +966,7 @@ for (let i = 0; i < 10; i++) {
   heroSection.appendChild(b);
 }
 
-// ===================== CONFETTI BUTTON (replaces candle-blow) =====================
+// ===================== CONFETTI BUTTON =====================
 const confettiBtn = document.getElementById('confettiBtn');
 const scrollCue = document.getElementById('scrollCue');
 let confettiTaps = 0;
@@ -860,7 +979,7 @@ confettiBtn.addEventListener('click', () => {
 
 // ===================== CONFETTI (vanilla) =====================
 function burstConfetti() {
-  const colors = ['#FF3E88','#FFC857','#6EE7B7','#4FD3FF','#FF8A3D','#D7FF3D'];
+  const colors = ['#F4C2C2','#F89883','#F0C0A8','#CC8899','#D8A8A8','#F7BCAC'];
   for (let i = 0; i < 60; i++) {
     const piece = document.createElement('div');
     const size = 6 + Math.random()*6;
@@ -901,22 +1020,24 @@ document.getElementById('closeLetter').addEventListener('click', () => {
   envFlap.classList.remove('open');
 });
 
-// ===================== QUIZ 1 =====================
-// EDIT: QUIZ QUESTIONS -- change questions/answers/feedback below to your own
+// ===================== QUIZ (scored) =====================
+// EDIT: QUIZ QUESTIONS -- "correct" is the index (0,1,2,3) of the right option
 const quizData = [
-  { q: "Where was our first date?", options: ["Coffee shop", "The mall", "A friend's party", "Somewhere neither of us remembers"], feedback: "Haha, edit this to the real answer!" },
-  { q: "What's my go-to comfort food?", options: ["Nasi lemak", "Ramen", "Chocolate anything", "You already know"], feedback: "Close enough, you get a point anyway." },
-  { q: "What song do we always play in the car?", options: ["Our song", "Whatever's on the radio", "That one you always skip", "This one obviously"], feedback: "You know me too well." },
-  { q: "Where do I want to travel to next?", options: ["Japan", "Somewhere with a beach", "Nowhere, just stay in bed", "Ask me later"], feedback: "Noted for future trip planning \uD83D\uDE09" }
+  { q: "Where was our first date?", options: ["Coffee shop", "The mall", "A museum", "Somewhere neither of us remembers"], correct: 2 },
+  { q: "What's my go-to comfort food?", options: ["Malatang", "Ramen", "Chocolate anything", "Fruit"], correct: 3 },
+  { q: "What song do I always play in the car?", options: ["Sendu songs", "Whatever's on the radio", "Jennie songs", "Bigbang Songs"], correct: 0 },
+  { q: "Where do I want to travel to next?", options: ["Penang", "Somewhere with a beach", "Korea lagi", "Bangkok"], correct: 3 }
 ];
-const quizFinalText = "You know us pretty well!"; // EDIT: closing quiz message
 let qzIndex = 0;
+let qzScore = 0;
 const qzProgress = document.getElementById('qzProgress');
 const qzQuestion = document.getElementById('qzQuestion');
 const qzOptions = document.getElementById('qzOptions');
 const qzFeedback = document.getElementById('qzFeedback');
 const qzBody = document.getElementById('qzBody');
 const qzFinal = document.getElementById('qzFinal');
+const qzScoreText = document.getElementById('qzScoreText');
+const qzFinalMsg = document.getElementById('qzFinalMsg');
 
 quizData.forEach(() => {
   const dot = document.createElement('span');
@@ -928,12 +1049,22 @@ function renderQuiz() {
   qzQuestion.textContent = item.q;
   qzOptions.innerHTML = '';
   qzFeedback.textContent = '';
-  item.options.forEach(opt => {
+  item.options.forEach((optText, idx) => {
     const btn = document.createElement('div');
     btn.className = 'qz-opt';
-    btn.textContent = opt;
+    btn.textContent = optText;
     btn.addEventListener('click', () => {
-      qzFeedback.textContent = item.feedback;
+      const isRight = idx === item.correct;
+      if (isRight) {
+        qzScore++;
+        btn.classList.add('right');
+        qzFeedback.textContent = '\u2705 correct!';
+      } else {
+        btn.classList.add('wrong');
+        [...qzOptions.children][item.correct].classList.add('right');
+        qzFeedback.textContent = `\u274C nope, it's "${item.options[item.correct]}"`;
+      }
+      [...qzOptions.children].forEach(o => o.classList.add('disabled'));
       [...qzProgress.children][qzIndex].classList.add('done');
       setTimeout(() => {
         qzIndex++;
@@ -941,17 +1072,171 @@ function renderQuiz() {
           renderQuiz();
         } else {
           qzBody.style.display = 'none';
+          qzScoreText.textContent = `${qzScore} / ${quizData.length}`;
+          let msg = "not bad at all!";
+          if (qzScore === quizData.length) msg = "perfect score! you know us so well \uD83E\uDD79";
+          else if (qzScore >= quizData.length / 2) msg = "pretty solid, not gonna lie \uD83D\uDE0C";
+          else msg = "we clearly need more inside jokes together \uD83D\uDE02";
+          qzFinalMsg.textContent = msg;
           qzFinal.classList.add('show');
         }
-      }, 900);
+      }, 1100);
     });
     qzOptions.appendChild(btn);
   });
 }
 renderQuiz();
 
+// ===================== MEMORY MATCH GAME =====================
+// EDIT: uses the same photo1.jpg-photo6.jpg from your gallery, each appears twice
+const memoryPhotos = ['photo1.jpg','photo2.jpg','photo3.jpg','photo4.jpg','photo5.jpg','photo6.jpg'];
+const memoryGrid = document.getElementById('memoryGrid');
+const gameMovesEl = document.getElementById('gameMoves');
+const gamePairsEl = document.getElementById('gamePairs');
+const gameWin = document.getElementById('gameWin');
+const gameFinalMoves = document.getElementById('gameFinalMoves');
+
+let flippedCards = [];
+let matchedCount = 0;
+let moveCount = 0;
+let lockBoard = false;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildMemoryGame() {
+  memoryGrid.innerHTML = '';
+  flippedCards = [];
+  matchedCount = 0;
+  moveCount = 0;
+  lockBoard = false;
+  gameMovesEl.textContent = '0';
+  gamePairsEl.textContent = '0';
+  gameWin.classList.remove('show');
+  const wall = document.getElementById('memoryWall');
+  if (wall) wall.classList.remove('show');
+
+  const deck = shuffle([...memoryPhotos, ...memoryPhotos]);
+  deck.forEach((photo) => {
+    const card = document.createElement('div');
+    card.className = 'memory-card';
+    card.dataset.photo = photo;
+    card.innerHTML = `
+      <div class="memory-card-inner">
+        <div class="memory-card-face memory-card-back">&#128155;</div>
+        <div class="memory-card-face memory-card-front">
+          <img src="${photo}" alt="memory" onerror="this.style.display='none'; this.parentElement.textContent='add ${photo}'">
+        </div>
+      </div>`;
+    card.addEventListener('click', () => onCardClick(card));
+    memoryGrid.appendChild(card);
+  });
+}
+
+function onCardClick(card) {
+  if (lockBoard) return;
+  if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+  card.classList.add('flipped');
+  flippedCards.push(card);
+
+  if (flippedCards.length === 2) {
+    moveCount++;
+    gameMovesEl.textContent = moveCount;
+    lockBoard = true;
+    const [a, b] = flippedCards;
+    if (a.dataset.photo === b.dataset.photo) {
+      a.classList.add('matched');
+      b.classList.add('matched');
+      matchedCount++;
+      gamePairsEl.textContent = matchedCount;
+      flippedCards = [];
+      lockBoard = false;
+      if (matchedCount === memoryPhotos.length) {
+        setTimeout(() => {
+          gameFinalMoves.textContent = moveCount;
+          gameWin.classList.add('show');
+          burstConfetti();
+        }, 400);
+      }
+    } else {
+      setTimeout(() => {
+        a.classList.remove('flipped');
+        b.classList.remove('flipped');
+        flippedCards = [];
+        lockBoard = false;
+      }, 800);
+    }
+  }
+}
+
+document.getElementById('gameResetBtn').addEventListener('click', buildMemoryGame);
+buildMemoryGame();
+
+// ===================== 12-MONTH MEMORY WALL =====================
+// EDIT: change the "note" text for each month to your own short caption.
+// Add your own photos named month1.jpg through month12.jpg in the site folder.
+const monthData = [
+  { label: 'September', file: 'month1.jpg',  note: 'kamu bawak saya makan sushi zenmai & sent me to the airport! (malam tu birthday saya sksk)' },
+  { label: 'October',   file: 'month2.jpg',  note: 'GENTINGGGGGG' },
+  { label: 'November',  file: 'month3.jpg',  note: 'baru balik korea bofen clingy ajak dating dulu :p' },
+  { label: 'December',  file: 'month4.jpg',  note: 'ldr daysssss hari2 facetime sksk' },
+  { label: 'January',   file: 'month5.jpg',  note: 'lahhh tiber botak pularkkk' },
+  { label: 'February',  file: 'month6.jpg',  note: 'detimmm tapi esok tu ada orang tu exam' },
+  { label: 'March',     file: 'month7.jpg',  note: 'tangkap gambaq dengan artis botak (sebijik park seo joon do)' },
+  { label: 'April',     file: 'month8.jpg',  note: 'pasaq seni datee (lama dah tak dating sini)' },
+  { label: 'May',       file: 'month9.jpg',  note: 'cikkandaqqq!' },
+  { label: 'June',      file: 'month10.jpg', note: 'makan ur fav food together' },
+  { label: 'July',      file: 'month11.jpg', note: 'movie timeeee' },
+  { label: 'August',    file: 'month12.jpg', note: 'dating sat sebelum tinggai bofen seminggu' }
+];
+
+function buildMonthGrid() {
+  const grid = document.getElementById('monthGrid');
+  if (grid.dataset.built) return; // only build once
+  grid.dataset.built = 'true';
+  monthData.forEach(m => {
+    const cell = document.createElement('div');
+    cell.className = 'month-cell';
+    cell.innerHTML = `
+      <div class="m-label">${m.label}</div>
+      <div class="m-photo">
+        <img src="${m.file}" alt="${m.label}" onerror="this.style.display='none'; this.parentElement.textContent='add ${m.file}'">
+      </div>
+      <div class="m-note">${m.note}</div>`;
+    grid.appendChild(cell);
+  });
+}
+
+document.getElementById('generateWallBtn').addEventListener('click', () => {
+  buildMonthGrid();
+  document.getElementById('memoryWall').classList.add('show');
+  burstConfetti();
+  document.getElementById('memoryWall').scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
 // ===================== LUNCH SCHEDULER =====================
-const answers = { day: '', mood: '', dress: '' };
+const answers = { date: '', dateLabel: '', time: '12:30', dress: '' };
+
+function setupDateCards() {
+  const cards = document.querySelectorAll('#dateChips .date-card');
+  const nextBtn = document.getElementById('lstep1').querySelector('.lunch-next');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      cards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      answers.date = card.dataset.val;
+      answers.dateLabel = card.querySelector('.day').textContent + ', ' + card.querySelector('.num').textContent + ' Sept';
+      nextBtn.classList.add('enabled');
+    });
+  });
+}
+setupDateCards();
 
 function setupChipGroup(containerId, key) {
   const container = document.getElementById(containerId);
@@ -966,9 +1251,18 @@ function setupChipGroup(containerId, key) {
     });
   });
 }
-setupChipGroup('dayChips', 'day');
-setupChipGroup('moodChips', 'mood');
 setupChipGroup('dressChips', 'dress');
+
+document.getElementById('lunchTimeInput').addEventListener('input', (e) => {
+  answers.time = e.target.value;
+});
+
+function formatTime12h(time24) {
+  const [h, m] = time24.split(':').map(Number);
+  const period = h >= 12 ? 'PM' : 'AM';
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12}:${String(m).padStart(2,'0')} ${period}`;
+}
 
 document.querySelectorAll('.lunch-next').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -978,96 +1272,24 @@ document.querySelectorAll('.lunch-next').forEach(btn => {
     currentStep.classList.remove('active');
     nextStep.classList.add('active');
     if (btn.dataset.next === 'lstep4') {
-      document.getElementById('lunchSummary').textContent =
-        `${answers.day}, ${answers.mood.toLowerCase()}, ${answers.dress.toLowerCase()}. I'll pick you up.`;
-      document.getElementById('lunchDate').value = toInputDate(nextDateForAnswer(answers.day));
-      initScratchCard();
+      document.getElementById('inviteDate').textContent = answers.dateLabel + ', 2026';
+      document.getElementById('inviteTime').textContent = formatTime12h(answers.time || '12:30');
+      document.getElementById('inviteDress').textContent = answers.dress;
     }
   });
 });
 
-// ---- guess a real date from the day preference picked in step 1 ----
-function nextWeekday(targetDow) {
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  const diff = (targetDow - today.getDay() + 7) % 7;
-  const d = new Date(today);
-  d.setDate(today.getDate() + diff);
-  return d;
-}
-function nextDateForAnswer(day) {
-  if (day === 'Saturday') return nextWeekday(6);
-  if (day === 'Sunday') return nextWeekday(0);
-  if (day === 'A weekday evening instead') return nextWeekday(5); // defaults to Friday evening
-  return nextWeekday(6); // "Surprise me" -> default guess of Saturday
-}
-function toInputDate(d) {
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-}
-
-// ---- scratch-off canvas ----
-function initScratchCard() {
-  const canvas = document.getElementById('scratchCanvas');
-  const card = canvas.closest('.scratch-card');
-  const rect = card.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
-  const ctx = canvas.getContext('2d');
-
-  const stripe = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#D7FF3D';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = '#FF3E88';
-  ctx.lineWidth = 14;
-  for (let x = -canvas.height; x < canvas.width; x += 28) {
-    ctx.beginPath();
-    ctx.moveTo(x, canvas.height);
-    ctx.lineTo(x + canvas.height, 0);
-    ctx.stroke();
-  }
-  ctx.fillStyle = '#171412';
-  ctx.font = '700 18px Space Grotesk, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('scratch here \u2728', canvas.width/2, canvas.height/2);
-
-  ctx.globalCompositeOperation = 'destination-out';
-  let drawing = false;
-
-  function getPos(e) {
-    const r = canvas.getBoundingClientRect();
-    const point = e.touches ? e.touches[0] : e;
-    return { x: point.clientX - r.left, y: point.clientY - r.top };
-  }
-  function scratch(e) {
-    const p = getPos(e);
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 24, 0, Math.PI*2);
-    ctx.fill();
-  }
-  canvas.addEventListener('mousedown', e => { drawing = true; scratch(e); });
-  canvas.addEventListener('mousemove', e => { if (drawing) scratch(e); });
-  window.addEventListener('mouseup', () => drawing = false);
-  canvas.addEventListener('touchstart', e => { drawing = true; scratch(e); e.preventDefault(); }, {passive:false});
-  canvas.addEventListener('touchmove', e => { if (drawing) scratch(e); e.preventDefault(); }, {passive:false});
-  canvas.addEventListener('touchend', () => drawing = false);
-}
-
 // ---- add to calendar (.ics) ----
 document.getElementById('addCalendarBtn').addEventListener('click', () => {
-  const dateVal = document.getElementById('lunchDate').value;
-  const timeVal = document.getElementById('lunchTime').value || '12:30';
   const status = document.getElementById('icsStatus');
-  if (!dateVal) {
-    status.textContent = 'Pick a date first \uD83D\uDE42';
-    return;
-  }
-  const start = new Date(dateVal + 'T' + timeVal + ':00');
+  const timeVal = answers.time || '12:30';
+  const start = new Date(answers.date + 'T' + timeVal + ':00');
   const end = new Date(start.getTime() + 90*60000);
   function fmt(d) {
     return d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') +
       'T' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0') + '00';
   }
-  const desc = `${answers.day}, ${answers.mood}, ${answers.dress}`.replace(/,/g,'\\,');
+  const desc = `Dress code: ${answers.dress}`.replace(/,/g,'\\,');
   const ics = [
     'BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT',
     'SUMMARY:Birthday Lunch \uD83C\uDF89',
