@@ -85,7 +85,7 @@
   }
   @media (max-width:640px){ .navdots{display:none;} }
 
-  /* ---------- MUSIC TOGGLE ---------- */
+  /* ---------- MUSIC BUTTON ---------- */
   .music-btn{
     position:fixed;
     left:16px;
@@ -95,15 +95,27 @@
     border:2.5px solid var(--ink);
     color:var(--ink);
     border-radius:999px;
-    padding:9px 16px;
+    padding:10px 18px;
     font-family:'Space Grotesk',sans-serif;
     font-weight:700;
-    font-size:12px;
+    font-size:13px;
     cursor:pointer;
     box-shadow:3px 3px 0 var(--ink);
     transition:.15s;
+    display:flex;
+    align-items:center;
+    gap:8px;
   }
-  .music-btn:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink); }
+  .music-btn:hover{
+    background:var(--cream);
+  }
+  .music-btn:active{ 
+    transform:translate(2px,2px); 
+    box-shadow:1px 1px 0 var(--ink); 
+  }
+  .music-btn.playing{
+    background:var(--lime);
+  }
 
   /* ---------- HERO ---------- */
   #hero{ padding-top:120px; }
@@ -322,245 +334,7 @@
     box-shadow:2px 2px 0 var(--ink);
   }
 
-  /* ---------- GALLERY ---------- */
-  #gallery{ background:var(--paper); }
-  .gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:26px;
-    max-width:820px;
-    margin-top:20px;
-  }
-  @media (max-width:640px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); gap:18px; } }
-  .polaroid{
-    background:var(--card);
-    padding:10px 10px 34px;
-    border:2.5px solid var(--ink);
-    border-radius:6px;
-    box-shadow:5px 5px 0 var(--ink);
-    transform:rotate(var(--r,0deg));
-    transition:transform .2s;
-    cursor:default;
-  }
-  .polaroid:nth-child(1){ --r:-4deg; }
-  .polaroid:nth-child(2){ --r:3deg; }
-  .polaroid:nth-child(3){ --r:-2deg; }
-  .polaroid:nth-child(4){ --r:2deg; }
-  .polaroid:nth-child(5){ --r:-3deg; }
-  .polaroid:nth-child(6){ --r:4deg; }
-  .polaroid:hover{ transform:rotate(0deg) scale(1.05); z-index:3; }
-  .polaroid .frame{
-    width:100%;
-    aspect-ratio:1/1;
-    background:repeating-linear-gradient(45deg, var(--lime), var(--lime) 12px, var(--sky) 12px, var(--sky) 24px);
-    border:1.5px solid var(--ink);
-    border-radius:2px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--ink);
-    font-size:12px;
-    font-weight:700;
-    text-align:center;
-    padding:10px;
-    overflow:hidden;
-  }
-  .polaroid .frame img{ width:100%; height:100%; object-fit:cover; }
-  .polaroid .cap{
-    color:var(--ink);
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:12px;
-    margin-top:10px;
-  }
-
-  /* ---------- QUIZ (scored) ---------- */
-  #quiz{ background:var(--paper); }
-  .quiz-card{
-    width:min(480px,90vw);
-    background:var(--card);
-    border:2.5px solid var(--ink);
-    border-radius:18px;
-    padding:34px 28px;
-    box-shadow:6px 6px 0 var(--ink);
-  }
-  .qz-progress{
-    display:flex; gap:6px; margin-bottom:22px; justify-content:center;
-  }
-  .qz-progress span{
-    width:26px; height:6px; border-radius:3px;
-    border:1.5px solid var(--ink);
-    background:var(--paper);
-  }
-  .qz-progress span.done{ background:var(--lime); }
-  .qz-question{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:21px; margin-bottom:20px; }
-  .qz-options{ display:flex; flex-direction:column; gap:12px; }
-  .qz-opt{
-    background:var(--card);
-    border:2px solid var(--ink);
-    color:var(--ink);
-    padding:13px 16px;
-    border-radius:12px;
-    font-family:'Nunito',sans-serif;
-    font-weight:700;
-    font-size:15px;
-    cursor:pointer;
-    text-align:left;
-    transition:.15s;
-    box-shadow:3px 3px 0 var(--ink);
-  }
-  .qz-opt:hover{ transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
-  .qz-opt.right{ background:var(--lime); }
-  .qz-opt.wrong{ background:#ffd7d7; }
-  .qz-opt.disabled{ pointer-events:none; opacity:0.85; }
-  .qz-feedback{
-    margin-top:18px;
-    color:var(--pink-deep);
-    font-weight:700;
-    min-height:20px;
-    font-size:14px;
-  }
-  .qz-final{ display:none; }
-  .qz-final.show{ display:block; }
-  .qz-final .big{ font-size:44px; margin-bottom:8px; }
-  .qz-score{
-    display:inline-block;
-    background:var(--lime);
-    border:2.5px solid var(--ink);
-    border-radius:999px;
-    padding:8px 22px;
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:18px;
-    margin:10px 0 14px;
-  }
-
-  /* ---------- SCHEDULER / LUNCH DATE ---------- */
-  #lunch{ background:var(--paper); }
-  .step-panel{ width:min(480px,90vw); }
-  .chip-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:22px; }
-  .chip{
-    background:var(--card);
-    border:2px solid var(--ink);
-    color:var(--ink);
-    padding:10px 18px;
-    border-radius:999px;
-    font-weight:700;
-    font-family:'Nunito',sans-serif;
-    cursor:pointer;
-    transition:.15s;
-    box-shadow:3px 3px 0 var(--ink);
-  }
-  .chip.selected, .chip:hover{ background:var(--pink); color:var(--cream); }
-  .date-card{
-    background:var(--card);
-    border:2.5px solid var(--ink);
-    border-radius:16px;
-    padding:18px 22px;
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:4px 4px 0 var(--ink);
-    transition:.15s;
-    min-width:150px;
-  }
-  .date-card .day{ font-size:12px; opacity:0.6; letter-spacing:1px; text-transform:uppercase; }
-  .date-card .num{ font-size:30px; margin:4px 0; }
-  .date-card.selected{ background:var(--lime); }
-  .date-card:hover{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
-  .time-input, .lunch-input{
-    font-family:'Nunito',sans-serif;
-    font-size:16px;
-    padding:12px 16px;
-    border-radius:10px;
-    border:2px solid var(--ink);
-    margin-top:20px;
-    background:var(--card);
-    color:var(--ink);
-    font-weight:700;
-  }
-  .lunch-next{
-    margin-top:30px;
-    background:var(--lime);
-    color:var(--ink);
-    border:2.5px solid var(--ink);
-    padding:12px 30px;
-    border-radius:999px;
-    font-weight:700;
-    font-family:'Space Grotesk',sans-serif;
-    font-size:15px;
-    cursor:pointer;
-    opacity:0.4;
-    pointer-events:none;
-    box-shadow:4px 4px 0 var(--ink);
-    transition:.15s;
-  }
-  .lunch-next.enabled{ opacity:1; pointer-events:auto; }
-  .lunch-next:hover.enabled{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
-  .lunch-step{ display:none; }
-  .lunch-step.active{ display:flex; flex-direction:column; align-items:center; }
-
-  .invite-card{
-    position:relative;
-    width:min(380px,88vw);
-    background:var(--card);
-    border:3px solid var(--ink);
-    border-radius:20px;
-    padding:34px 26px 28px;
-    box-shadow:7px 7px 0 var(--ink);
-    margin-top:16px;
-    animation:popIn .5s cubic-bezier(.3,1.4,.5,1);
-  }
-  @keyframes popIn{ from{ opacity:0; transform:scale(0.8);} to{opacity:1; transform:scale(1);} }
-  .invite-sticker{
-    position:absolute;
-    top:-18px; right:-14px;
-    background:var(--pink);
-    color:var(--cream);
-    border:2.5px solid var(--ink);
-    border-radius:50%;
-    width:56px; height:56px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:24px;
-    transform:rotate(12deg);
-  }
-  .invite-card h3{ font-size:24px; color:var(--pink-deep); margin-bottom:4px; }
-  .invite-card .invite-sub{ font-family:'Caveat',cursive; font-weight:700; font-size:20px; color:var(--ink); opacity:0.8; margin-bottom:18px; }
-  .invite-row{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    text-align:left;
-    padding:10px 0;
-    border-top:1.5px dashed rgba(23,20,18,0.25);
-    font-weight:700;
-  }
-  .invite-row:first-of-type{ border-top:none; }
-  .invite-row .ic{ font-size:20px; }
-  .invite-row .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:1px; opacity:0.55; display:block; }
-  .invite-row .val{ font-size:15px; }
-  .invite-card button{
-    margin-top:20px;
-    background:var(--pink);
-    color:var(--cream);
-    border:2px solid var(--ink);
-    padding:12px 24px;
-    border-radius:999px;
-    font-weight:700;
-    font-family:'Space Grotesk',sans-serif;
-    cursor:pointer;
-    box-shadow:3px 3px 0 var(--ink);
-    width:100%;
-  }
-  .ics-status{
-    margin-top:12px;
-    font-size:13px;
-    color:var(--pink-deep);
-    font-weight:700;
-    min-height:18px;
-  }
-
-  /* ---------- MEMORY GAME ---------- */
+  /* ---------- GAME ---------- */
   #game{ background:var(--paper); }
   .game-meta{
     display:flex;
@@ -680,17 +454,6 @@
     color:var(--pink-deep);
   }
   .wf-heart{ font-size:18px; }
-  .wf-sub{
-    background:var(--cream);
-    border-left:2px solid var(--ink);
-    border-right:2px solid var(--ink);
-    text-align:center;
-    font-size:11px;
-    font-weight:700;
-    color:rgba(23,20,18,0.5);
-    padding:0 10px 10px;
-    margin:0;
-  }
   .month-grid{
     background:var(--cream);
     border:2px solid var(--ink);
@@ -746,24 +509,214 @@
     color:var(--pink-deep);
   }
 
+  /* ---------- QUIZ ---------- */
+  #quiz{ background:var(--paper); }
+  .quiz-card{
+    width:min(480px,90vw);
+    background:var(--card);
+    border:2.5px solid var(--ink);
+    border-radius:18px;
+    padding:34px 28px;
+    box-shadow:6px 6px 0 var(--ink);
+  }
+  .qz-progress{
+    display:flex; gap:6px; margin-bottom:22px; justify-content:center;
+  }
+  .qz-progress span{
+    width:26px; height:6px; border-radius:3px;
+    border:1.5px solid var(--ink);
+    background:var(--paper);
+  }
+  .qz-progress span.done{ background:var(--lime); }
+  .qz-question{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:21px; margin-bottom:20px; }
+  .qz-options{ display:flex; flex-direction:column; gap:12px; }
+  .qz-opt{
+    background:var(--card);
+    border:2px solid var(--ink);
+    color:var(--ink);
+    padding:13px 16px;
+    border-radius:12px;
+    font-family:'Nunito',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    text-align:left;
+    transition:.15s;
+    box-shadow:3px 3px 0 var(--ink);
+  }
+  .qz-opt:hover{ transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
+  .qz-opt.right{ background:var(--lime); }
+  .qz-opt.wrong{ background:#ffd7d7; }
+  .qz-opt.disabled{ pointer-events:none; opacity:0.85; }
+  .qz-feedback{
+    margin-top:18px;
+    color:var(--pink-deep);
+    font-weight:700;
+    min-height:20px;
+    font-size:14px;
+  }
+  .qz-final{ display:none; }
+  .qz-final.show{ display:block; }
+  .qz-final .big{ font-size:44px; margin-bottom:8px; }
+  .qz-score{
+    display:inline-block;
+    background:var(--lime);
+    border:2.5px solid var(--ink);
+    border-radius:999px;
+    padding:8px 22px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:18px;
+    margin:10px 0 14px;
+  }
+
+  /* ---------- SCHEDULER / LUNCH DATE ---------- */
+  #lunch{ background:var(--paper); }
+  .step-panel{ width:min(480px,90vw); }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:22px; }
+  .chip{
+    background:var(--card);
+    border:2px solid var(--ink);
+    color:var(--ink);
+    padding:10px 18px;
+    border-radius:999px;
+    font-weight:700;
+    font-family:'Nunito',sans-serif;
+    cursor:pointer;
+    transition:.15s;
+    box-shadow:3px 3px 0 var(--ink);
+  }
+  .chip.selected, .chip:hover{ background:var(--pink); color:var(--cream); }
+  .date-card{
+    background:var(--card);
+    border:2.5px solid var(--ink);
+    border-radius:16px;
+    padding:18px 22px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:.15s;
+    min-width:150px;
+  }
+  .date-card .day{ font-size:12px; opacity:0.6; letter-spacing:1px; text-transform:uppercase; }
+  .date-card .num{ font-size:30px; margin:4px 0; }
+  .date-card.selected{ background:var(--lime); }
+  .date-card:hover{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+  .time-input{
+    font-family:'Nunito',sans-serif;
+    font-size:16px;
+    padding:12px 16px;
+    border-radius:10px;
+    border:2px solid var(--ink);
+    margin-top:20px;
+    background:var(--card);
+    color:var(--ink);
+    font-weight:700;
+  }
+  .lunch-next{
+    margin-top:30px;
+    background:var(--lime);
+    color:var(--ink);
+    border:2.5px solid var(--ink);
+    padding:12px 30px;
+    border-radius:999px;
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:15px;
+    cursor:pointer;
+    opacity:0.4;
+    pointer-events:none;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:.15s;
+  }
+  .lunch-next.enabled{ opacity:1; pointer-events:auto; }
+  .lunch-next:hover.enabled{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+  .lunch-step{ display:none; }
+  .lunch-step.active{ display:flex; flex-direction:column; align-items:center; }
+
+  .invite-card{
+    position:relative;
+    width:min(380px,88vw);
+    background:var(--card);
+    border:3px solid var(--ink);
+    border-radius:20px;
+    padding:34px 26px 28px;
+    box-shadow:7px 7px 0 var(--ink);
+    margin-top:16px;
+    animation:popIn .5s cubic-bezier(.3,1.4,.5,1);
+  }
+  @keyframes popIn{ from{ opacity:0; transform:scale(0.8);} to{opacity:1; transform:scale(1);} }
+  .invite-sticker{
+    position:absolute;
+    top:-18px; right:-14px;
+    background:var(--pink);
+    color:var(--cream);
+    border:2.5px solid var(--ink);
+    border-radius:50%;
+    width:56px; height:56px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px;
+    transform:rotate(12deg);
+  }
+  .invite-card h3{ font-size:24px; color:var(--pink-deep); margin-bottom:4px; }
+  .invite-card .invite-sub{ font-family:'Caveat',cursive; font-weight:700; font-size:20px; color:var(--ink); opacity:0.8; margin-bottom:18px; }
+  .invite-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-align:left;
+    padding:10px 0;
+    border-top:1.5px dashed rgba(23,20,18,0.25);
+    font-weight:700;
+  }
+  .invite-row:first-of-type{ border-top:none; }
+  .invite-row .ic{ font-size:20px; }
+  .invite-row .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:1px; opacity:0.55; display:block; }
+  .invite-row .val{ font-size:15px; }
+  .invite-card button{
+    margin-top:20px;
+    background:var(--pink);
+    color:var(--cream);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    border-radius:999px;
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+    cursor:pointer;
+    box-shadow:3px 3px 0 var(--ink);
+    width:100%;
+  }
+  .ics-status{
+    margin-top:12px;
+    font-size:13px;
+    color:var(--pink-deep);
+    font-weight:700;
+    min-height:18px;
+  }
+
   footer{
     text-align:center;
-    padding:40px 20px 60px;
-    color:rgba(23,20,18,0.45);
+    padding:20px 20px;
+    color:rgba(23,20,18,0.55);
     font-size:13px;
-    font-weight:600;
+    font-weight:700;
     background:var(--paper);
   }
 </style>
 </head>
 <body>
 
-<button class="music-btn" id="musicBtn">&#9834; play a tune</button>
+<!-- AUDIO ELEMENT (MP3) -->
+<audio id="bgAudio" src="song.mp3" loop preload="auto"></audio>
+
+<button class="music-btn" id="musicBtn">&#9834; play our song</button>
+
 <div class="navdots">
   <a href="#hero" class="active" data-target="hero"></a>
   <a href="#letter" data-target="letter"></a>
-  <a href="#quiz" data-target="quiz"></a>
   <a href="#game" data-target="game"></a>
+  <a href="#quiz" data-target="quiz"></a>
   <a href="#lunch" data-target="lunch"></a>
 </div>
 
@@ -936,8 +889,26 @@
 <footer>tolong screenshot date tu baby sbb saya tak buat backend HHAHAHAHHAH</footer>
 <footer> - by Princess EcahPeruz </footer>
 
-
 <script>
+// ===================== AUDIO (song.mp3) =====================
+const bgAudio = document.getElementById('bgAudio');
+const musicBtn = document.getElementById('musicBtn');
+
+musicBtn.addEventListener('click', () => {
+  if (bgAudio.paused) {
+    bgAudio.play().then(() => {
+      musicBtn.classList.add('playing');
+      musicBtn.innerHTML = '&#10074;&#10074; pause song';
+    }).catch(err => {
+      console.warn("Audio play blocked or file not found:", err);
+    });
+  } else {
+    bgAudio.pause();
+    musicBtn.classList.remove('playing');
+    musicBtn.innerHTML = '&#9834; play our song';
+  }
+});
+
 // ===================== NAV DOTS =====================
 const sections = ['hero','letter','game','quiz','lunch'];
 const dots = document.querySelectorAll('.navdots a');
@@ -945,7 +916,7 @@ window.addEventListener('scroll', () => {
   let current = sections[0];
   sections.forEach(id => {
     const el = document.getElementById(id);
-    if (el.getBoundingClientRect().top <= window.innerHeight * 0.5) current = id;
+    if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.5) current = id;
   });
   dots.forEach(d => d.classList.toggle('active', d.dataset.target === current));
 });
@@ -966,7 +937,7 @@ for (let i = 0; i < 10; i++) {
   heroSection.appendChild(b);
 }
 
-// ===================== CONFETTI BUTTON =====================
+// ===================== CONFETTI =====================
 const confettiBtn = document.getElementById('confettiBtn');
 const scrollCue = document.getElementById('scrollCue');
 let confettiTaps = 0;
@@ -977,7 +948,6 @@ confettiBtn.addEventListener('click', () => {
   scrollCue.classList.add('show');
 });
 
-// ===================== CONFETTI (vanilla) =====================
 function burstConfetti() {
   const colors = ['#F4C2C2','#F89883','#F0C0A8','#CC8899','#D8A8A8','#F7BCAC'];
   for (let i = 0; i < 60; i++) {
@@ -1020,75 +990,7 @@ document.getElementById('closeLetter').addEventListener('click', () => {
   envFlap.classList.remove('open');
 });
 
-// ===================== QUIZ (scored) =====================
-// EDIT: QUIZ QUESTIONS -- "correct" is the index (0,1,2,3) of the right option
-const quizData = [
-  { q: "Where was our first date?", options: ["Coffee shop", "The mall", "A museum", "Somewhere neither of us remembers"], correct: 2 },
-  { q: "What's my go-to comfort food?", options: ["Malatang", "Ramen", "Chocolate anything", "Fruit"], correct: 3 },
-  { q: "What song do I always play in the car?", options: ["Sendu songs", "Whatever's on the radio", "Jennie songs", "Bigbang Songs"], correct: 0 },
-  { q: "Where do I want to travel to next?", options: ["Jakarta", "Somewhere by a beach", "Korea lagi", "Hatyai"], correct: 3 }
-];
-let qzIndex = 0;
-let qzScore = 0;
-const qzProgress = document.getElementById('qzProgress');
-const qzQuestion = document.getElementById('qzQuestion');
-const qzOptions = document.getElementById('qzOptions');
-const qzFeedback = document.getElementById('qzFeedback');
-const qzBody = document.getElementById('qzBody');
-const qzFinal = document.getElementById('qzFinal');
-const qzScoreText = document.getElementById('qzScoreText');
-const qzFinalMsg = document.getElementById('qzFinalMsg');
-
-quizData.forEach(() => {
-  const dot = document.createElement('span');
-  qzProgress.appendChild(dot);
-});
-
-function renderQuiz() {
-  const item = quizData[qzIndex];
-  qzQuestion.textContent = item.q;
-  qzOptions.innerHTML = '';
-  qzFeedback.textContent = '';
-  item.options.forEach((optText, idx) => {
-    const btn = document.createElement('div');
-    btn.className = 'qz-opt';
-    btn.textContent = optText;
-    btn.addEventListener('click', () => {
-      const isRight = idx === item.correct;
-      if (isRight) {
-        qzScore++;
-        btn.classList.add('right');
-        qzFeedback.textContent = '\u2705 correct!';
-      } else {
-        btn.classList.add('wrong');
-        [...qzOptions.children][item.correct].classList.add('right');
-        qzFeedback.textContent = `\u274C nope, it's "${item.options[item.correct]}"`;
-      }
-      [...qzOptions.children].forEach(o => o.classList.add('disabled'));
-      [...qzProgress.children][qzIndex].classList.add('done');
-      setTimeout(() => {
-        qzIndex++;
-        if (qzIndex < quizData.length) {
-          renderQuiz();
-        } else {
-          qzBody.style.display = 'none';
-          qzScoreText.textContent = `${qzScore} / ${quizData.length}`;
-          let msg = "not bad at all!";
-          if (qzScore === quizData.length) msg = "perfect score! you know us so well \uD83E\uDD79";
-          else if (qzScore >= quizData.length / 2) msg = "pretty solid, not gonna lie \uD83D\uDE0C";
-          else msg = "we clearly need more inside jokes together \uD83D\uDE02";
-          qzFinalMsg.textContent = msg;
-          qzFinal.classList.add('show');
-        }
-      }, 1100);
-    });
-    qzOptions.appendChild(btn);
-  });
-}
-renderQuiz();
-
 // ===================== MEMORY MATCH GAME =====================
-// EDIT: uses the same photo1.jpg-photo6.jpg from your gallery, each appears twice
 const memoryPhotos = ['photo1.jpg','photo2.jpg','photo3.jpg','photo4.jpg','photo5.jpg','photo6.jpg'];
 const memoryGrid = document.getElementById('memoryGrid');
 const gameMovesEl = document.getElementById('gameMoves');
@@ -1179,8 +1081,6 @@ document.getElementById('gameResetBtn').addEventListener('click', buildMemoryGam
 buildMemoryGame();
 
 // ===================== 12-MONTH MEMORY WALL =====================
-// EDIT: change the "note" text for each month to your own short caption.
-// Add your own photos named month1.jpg through month12.jpg in the site folder.
 const monthData = [
   { label: 'September', file: 'month1.jpg',  note: 'kamu bawak saya makan sushi zenmai & sent me to the airport! (malam tu birthday saya sksk)' },
   { label: 'October',   file: 'month2.jpg',  note: 'GENTINGGGGGG' },
@@ -1198,7 +1098,7 @@ const monthData = [
 
 function buildMonthGrid() {
   const grid = document.getElementById('monthGrid');
-  if (grid.dataset.built) return; // only build once
+  if (grid.dataset.built) return;
   grid.dataset.built = 'true';
   monthData.forEach(m => {
     const cell = document.createElement('div');
@@ -1219,6 +1119,72 @@ document.getElementById('generateWallBtn').addEventListener('click', () => {
   burstConfetti();
   document.getElementById('memoryWall').scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
+
+// ===================== QUIZ (scored) =====================
+const quizData = [
+  { q: "Where was our first date?", options: ["Coffee shop", "The mall", "A museum", "Somewhere neither of us remembers"], correct: 2 },
+  { q: "What's my go-to comfort food?", options: ["Malatang", "Ramen", "Chocolate anything", "Fruit"], correct: 3 },
+  { q: "What song do I always play in the car?", options: ["Sendu songs", "Whatever's on the radio", "Jennie songs", "Bigbang Songs"], correct: 0 },
+  { q: "Where do I want to travel to next?", options: ["Jakarta", "Somewhere by a beach", "Korea lagi", "Hatyai"], correct: 3 }
+];
+let qzIndex = 0;
+let qzScore = 0;
+const qzProgress = document.getElementById('qzProgress');
+const qzQuestion = document.getElementById('qzQuestion');
+const qzOptions = document.getElementById('qzOptions');
+const qzFeedback = document.getElementById('qzFeedback');
+const qzBody = document.getElementById('qzBody');
+const qzFinal = document.getElementById('qzFinal');
+const qzScoreText = document.getElementById('qzScoreText');
+const qzFinalMsg = document.getElementById('qzFinalMsg');
+
+quizData.forEach(() => {
+  const dot = document.createElement('span');
+  qzProgress.appendChild(dot);
+});
+
+function renderQuiz() {
+  const item = quizData[qzIndex];
+  qzQuestion.textContent = item.q;
+  qzOptions.innerHTML = '';
+  qzFeedback.textContent = '';
+  item.options.forEach((optText, idx) => {
+    const btn = document.createElement('div');
+    btn.className = 'qz-opt';
+    btn.textContent = optText;
+    btn.addEventListener('click', () => {
+      const isRight = idx === item.correct;
+      if (isRight) {
+        qzScore++;
+        btn.classList.add('right');
+        qzFeedback.textContent = '\u2705 correct!';
+      } else {
+        btn.classList.add('wrong');
+        [...qzOptions.children][item.correct].classList.add('right');
+        qzFeedback.textContent = `\u274C nope, it's "${item.options[item.correct]}"`;
+      }
+      [...qzOptions.children].forEach(o => o.classList.add('disabled'));
+      [...qzProgress.children][qzIndex].classList.add('done');
+      setTimeout(() => {
+        qzIndex++;
+        if (qzIndex < quizData.length) {
+          renderQuiz();
+        } else {
+          qzBody.style.display = 'none';
+          qzScoreText.textContent = `${qzScore} / ${quizData.length}`;
+          let msg = "not bad at all!";
+          if (qzScore === quizData.length) msg = "perfect score! you know us so well \uD83E\uDD79";
+          else if (qzScore >= quizData.length / 2) msg = "pretty solid, not gonna lie \uD83D\uDE0C";
+          else msg = "we clearly need more inside jokes together \uD83D\uDE02";
+          qzFinalMsg.textContent = msg;
+          qzFinal.classList.add('show');
+        }
+      }, 1100);
+    });
+    qzOptions.appendChild(btn);
+  });
+}
+renderQuiz();
 
 // ===================== LUNCH SCHEDULER =====================
 const answers = { date: '', dateLabel: '', time: '12:30', dress: '' };
@@ -1279,7 +1245,7 @@ document.querySelectorAll('.lunch-next').forEach(btn => {
   });
 });
 
-// ---- add to calendar (.ics) ----
+// ===================== CALENDAR (.ics) =====================
 document.getElementById('addCalendarBtn').addEventListener('click', () => {
   const status = document.getElementById('icsStatus');
   const timeVal = answers.time || '12:30';
@@ -1306,45 +1272,6 @@ document.getElementById('addCalendarBtn').addEventListener('click', () => {
   a.click();
   URL.revokeObjectURL(url);
   status.textContent = 'Added! Check your downloads \uD83D\uDC8C';
-});
-
-// ===================== MUSIC (generated chime, no external files) =====================
-let audioCtx = null;
-let musicPlaying = false;
-let musicTimer = null;
-const musicBtn = document.getElementById('musicBtn');
-
-function playNote(freq, time, duration) {
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = 'sine';
-  osc.frequency.value = freq;
-  gain.gain.setValueAtTime(0, time);
-  gain.gain.linearRampToValueAtTime(0.15, time + 0.03);
-  gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
-  osc.connect(gain).connect(audioCtx.destination);
-  osc.start(time);
-  osc.stop(time + duration);
-}
-
-function playLoop() {
-  const notes = [523.25, 587.33, 659.25, 523.25, 659.25, 783.99, 659.25, 587.33];
-  const now = audioCtx.currentTime;
-  notes.forEach((f, i) => playNote(f, now + i*0.35, 0.32));
-  musicTimer = setTimeout(playLoop, notes.length*350 + 400);
-}
-
-musicBtn.addEventListener('click', () => {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (musicPlaying) {
-    clearTimeout(musicTimer);
-    musicPlaying = false;
-    musicBtn.textContent = '\u266A play a tune';
-  } else {
-    musicPlaying = true;
-    musicBtn.textContent = '\u266A pause tune';
-    playLoop();
-  }
 });
 </script>
 </body>
